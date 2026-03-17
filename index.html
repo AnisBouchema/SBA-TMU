@@ -181,9 +181,10 @@
     }
 
     #navbar.scrolled {
-      background: rgba(13, 46, 16, 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(13, 46, 16, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(126, 200, 32, 0.15);
     }
 
     .nav-links {
@@ -239,7 +240,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 40px 40px;
+      padding: 100px 40px 40px;
       position: relative;
       overflow: hidden;
     }
@@ -260,7 +261,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 20px;
     }
 
     .hero-accent {
@@ -276,24 +277,25 @@
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: clamp(32px, 5vw, 56px);
+      font-size: clamp(52px, 7vw, 88px);
       color: #F9FAF0;
-      line-height: 1.08;
+      line-height: 1.05;
       margin-bottom: 0;
     }
 
     .hero-sub {
       font-family: 'DM Sans', sans-serif;
       font-weight: 400;
-      font-size: 15px;
+      font-size: 18px;
       color: rgba(249, 250, 240, 0.84);
-      line-height: 1.78;
+      line-height: 1.7;
       margin: 0 auto;
-      max-width: 500px;
+      max-width: 600px;
     }
 
     .hero-buttons .btn {
-      padding: 12px 28px;
+      padding: 16px 40px;
+      font-size: 16px;
     }
 
     .hero-buttons {
@@ -332,8 +334,8 @@
       border-radius: 20px;
       border: 1.5px solid rgba(126, 200, 32, 0.25);
       border-top: 3px solid #7EC820;
-      box-shadow: 0 2px 16px rgba(26, 107, 42, 0.08);
-      padding: 34px;
+      box-shadow: 0 2px 16px rgba(26, 107, 42, 0.08), 0 0 15px rgba(126, 200, 32, 0.12), 0 0 30px rgba(200, 232, 0, 0.06);
+      padding: 28px;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -592,27 +594,28 @@
     ============================================================ */
     .team-section {
       position: relative;
-      height: 100vh;
       overflow: hidden;
+      height: 100vh;
+      background: #EFF5E0;
     }
 
     .team-scroll-container {
       display: flex;
       flex-direction: row;
+      height: 100vh;
       width: fit-content;
-      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
     }
 
     .team-panel {
       width: 100vw;
       height: 100vh;
-      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
       flex-shrink: 0;
+      position: relative;
     }
 
     .team-panel:nth-child(odd) {
@@ -632,20 +635,6 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-    }
-
-    .team-panel-number {
-      position: absolute;
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: clamp(120px, 14vw, 180px);
-      line-height: 1;
-      color: #1A6B2A;
-      opacity: 0.06;
-      bottom: -10px;
-      right: 5%;
-      pointer-events: none;
-      user-select: none;
     }
 
     .team-panel-content {
@@ -779,46 +768,73 @@
       transform: scale(1.45);
     }
 
-    /* Scroll hint */
-    .scroll-hint {
+    /* Nav buttons */
+    /* Swipe zones */
+    .swipe-zone {
       position: absolute;
-      bottom: 72px;
-      right: 48px;
+      top: 0;
+      width: 15%;
+      height: 100%;
+      z-index: 5;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: all;
+      cursor: pointer;
+    }
+
+    .swipe-left {
+      left: 0;
+      background: linear-gradient(90deg, rgba(26, 107, 42, 0.08) 0%, transparent 100%);
+    }
+
+    .swipe-right {
+      right: 0;
+      background: linear-gradient(270deg, rgba(26, 107, 42, 0.08) 0%, transparent 100%);
+    }
+
+    .swipe-zone:hover {
+      opacity: 1;
+    }
+
+    .swipe-hint-left,
+    .swipe-hint-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .swipe-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(126, 200, 32, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #1A6B2A;
+      box-shadow: 0 4px 16px rgba(26, 107, 42, 0.15);
+      animation: pulseArrow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseArrow {
+      0%, 100% { transform: scale(1);   box-shadow: 0 4px 16px rgba(26, 107, 42, 0.15); }
+      50%       { transform: scale(1.1); box-shadow: 0 4px 24px rgba(126, 200, 32, 0.4); }
+    }
+
+    .swipe-hint-left span,
+    .swipe-hint-right span {
       font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      font-size: 0.72rem;
-      letter-spacing: 3px;
+      font-size: 11px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: #4A9B1A;
-      animation: fadeInOut 2.6s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .scroll-hint-arrow {
-      width: 36px;
-      height: 1.5px;
-      background: #4A9B1A;
-      position: relative;
-    }
-
-    .scroll-hint-arrow::after {
-      content: '';
-      position: absolute;
-      right: -1px;
-      top: 50%;
-      transform: translateY(-50%) rotate(45deg);
-      width: 7px;
-      height: 7px;
-      border-top: 1.5px solid #4A9B1A;
-      border-right: 1.5px solid #4A9B1A;
-    }
-
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0.25; }
-      50%       { opacity: 1; }
+      color: #1A6B2A;
+      font-weight: 600;
     }
 
     /* ============================================================
@@ -921,7 +937,6 @@
         grid-template-columns: 1fr;
         max-width: 540px;
       }
-
 
       .topics-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1077,18 +1092,8 @@
       width: 100%;
       height: auto;
       border-radius: 20px;
-      transition: background 0.3s ease;
       padding: 12px;
       margin: -12px;
-    }
-
-    .sba-card-atropos:hover {
-      background: radial-gradient(ellipse at center, rgba(200,232,0,0.15) 0%, rgba(126,200,32,0.08) 50%, transparent 100%);
-    }
-
-    .what-grid .sba-card-atropos:hover,
-    .topics-grid .sba-card-atropos:hover {
-      background: radial-gradient(ellipse at center, rgba(200,232,0,0.18) 0%, rgba(126,200,32,0.10) 50%, transparent 100%);
     }
 
     .sba-card-atropos .atropos-inner {
@@ -1170,7 +1175,7 @@
     </svg>
 
     <div class="hero-content fade-in" id="heroContent">
-      <img src="images/SBA_logo_Transparent_WhiteOutline+Leaf.png" alt="SBA" style="width: 160px; height: auto; object-fit: contain; filter: drop-shadow(0 0 40px rgba(200,232,0,0.8)) drop-shadow(0 0 80px rgba(200,232,0,0.4)); animation: logoPulse 3s ease-in-out infinite;">
+      <img src="images/SBA_logo_Transparent_WhiteOutline+Leaf.png" alt="SBA" style="width: 240px; height: auto; object-fit: contain; filter: drop-shadow(0 0 40px rgba(200,232,0,0.8)) drop-shadow(0 0 80px rgba(200,232,0,0.4)); animation: logoPulse 3s ease-in-out infinite;">
       <h1 class="hero-title">Sustainable Business Association</h1>
       <p class="hero-sub">Where ambition meets responsibility. TMU's home for students who believe that how you build your life and your career matters just as much as what you build.</p>
       <div class="hero-buttons">
@@ -1438,77 +1443,79 @@
 
     <div class="team-scroll-container" id="teamScrollContainer">
 
-      <!-- ╔══════════════════════════════════════════╗
-           ║  PANEL 01 — Anis Bouchema               ║
-           ║  To add a member: duplicate a .team-     ║
-           ║  panel block and update content +        ║
-           ║  add a new .team-dot above               ║
-           ╚══════════════════════════════════════════╝ -->
-      <div class="team-panel">
-        <img class="team-panel-watermark" src="images/SBA%20LOGO%20SVG.svg" aria-hidden="true">
-        <div class="team-panel-number">01</div>
+      <!-- ── PANEL 01 — Anis Bouchema ── bg: #EFF5E0 ───────────── -->
+      <div class="team-panel" style="background:#EFF5E0;">
         <!-- Scroll hint — only on first panel -->
-        <div class="scroll-hint">
-          <span>Scroll</span>
-          <div class="scroll-hint-arrow"></div>
-        </div>
+        <img src="images/SBA%20LOGO%20SVG.svg" class="team-panel-watermark" alt="">
         <div class="team-panel-content">
           <div class="team-panel-avatar">
             <span class="team-panel-initials">AB</span>
           </div>
-          <div class="team-panel-role-tag">Founder</div>
+          <span class="team-panel-role-tag">Founder</span>
           <h2 class="team-panel-name">Anis Bouchema</h2>
           <p class="team-panel-role">Founder &amp; President</p>
-          <p class="team-panel-program">&nbsp;</p>
-          <span class="team-panel-badge">Founder</span>
+          <p class="team-panel-program">Sustainable Business Association · TMU</p>
+          <span class="team-panel-badge">Founder &amp; President</span>
           <a href="https://www.linkedin.com/in/anisbouchema/" target="_blank" rel="noopener noreferrer" class="team-panel-linkedin">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Connect on LinkedIn
           </a>
         </div>
       </div>
 
-      <!-- ── PANEL 02 — Hosaa Siddiqui ──────────────────────── -->
-      <div class="team-panel">
-        <img class="team-panel-watermark" src="images/SBA%20LOGO%20SVG.svg" aria-hidden="true">
-        <div class="team-panel-number">02</div>
+      <!-- ── PANEL 02 — Hosaa Siddiqui ── bg: #F9FAF0 ──────────── -->
+      <div class="team-panel" style="background:#F9FAF0;">
+        <img src="images/SBA%20LOGO%20SVG.svg" class="team-panel-watermark" alt="">
         <div class="team-panel-content">
           <div class="team-panel-avatar">
             <span class="team-panel-initials">HS</span>
           </div>
-          <div class="team-panel-role-tag">Executive VP</div>
+          <span class="team-panel-role-tag">Executive VP</span>
           <h2 class="team-panel-name">Hosaa Siddiqui</h2>
           <p class="team-panel-role">Executive Vice President</p>
-          <p class="team-panel-program">Business Technology Management</p>
-          <span class="team-panel-badge">Executive VP</span>
+          <p class="team-panel-program">Sustainable Business Association · TMU</p>
+          <span class="team-panel-badge">Executive Vice President</span>
           <a href="https://www.linkedin.com/in/hosaa-siddiqui-95b46a221/" target="_blank" rel="noopener noreferrer" class="team-panel-linkedin">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Connect on LinkedIn
           </a>
         </div>
       </div>
 
-      <!-- ── PANEL 03 — Yuliya Lypnytska ────────────────────── -->
-      <div class="team-panel">
-        <img class="team-panel-watermark" src="images/SBA%20LOGO%20SVG.svg" aria-hidden="true">
-        <div class="team-panel-number">03</div>
+      <!-- ── PANEL 03 — Yuliya Lypnytska ── bg: #EFF5E0 ────────── -->
+      <div class="team-panel" style="background:#EFF5E0;">
+        <img src="images/SBA%20LOGO%20SVG.svg" class="team-panel-watermark" alt="">
         <div class="team-panel-content">
           <div class="team-panel-avatar">
             <span class="team-panel-initials">YL</span>
           </div>
-          <div class="team-panel-role-tag">VP Finance</div>
+          <span class="team-panel-role-tag">VP Finance</span>
           <h2 class="team-panel-name">Yuliya Lypnytska</h2>
           <p class="team-panel-role">VP Finance</p>
-          <p class="team-panel-program">&nbsp;</p>
+          <p class="team-panel-program">Sustainable Business Association · TMU</p>
           <span class="team-panel-badge">VP Finance</span>
           <a href="https://www.linkedin.com/in/yuliya-lypnytska-ba25bb322/" target="_blank" rel="noopener noreferrer" class="team-panel-linkedin">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            Connect on LinkedIn
           </a>
         </div>
       </div>
 
     </div><!-- /.team-scroll-container -->
+
+    <div class="swipe-zone swipe-left" id="swipeLeft">
+      <div class="swipe-hint-left">
+        <div class="swipe-arrow">&#8592;</div>
+        <span>Previous</span>
+      </div>
+    </div>
+    <div class="swipe-zone swipe-right" id="swipeRight">
+      <div class="swipe-hint-right">
+        <div class="swipe-arrow">&#8594;</div>
+        <span>Next</span>
+      </div>
+    </div>
+
   </section>
 
 
@@ -1815,7 +1822,7 @@
       repeat: -1
     });
 
-    // 3. STAGGERED CARD ANIMATIONS ON SCROLL
+    // 4. STAGGERED CARD ANIMATIONS ON SCROLL
     // Pillar cards — individual scroll reveal
     document.querySelectorAll('.pillar').forEach((pillar) => {
       gsap.to(pillar, {
@@ -1844,15 +1851,15 @@
       );
     });
 
-    // 4. SECTION TITLE ANIMATIONS (non-split titles only)
-    document.querySelectorAll('.section-title:not(.split-title)').forEach(title => {
-      gsap.fromTo(title,
-        { y: 50, opacity: 0 },
+    // Section body text
+    document.querySelectorAll('.section-body').forEach(el => {
+      gsap.fromTo(el,
+        { y: 30, opacity: 0 },
         {
           y: 0, opacity: 1,
-          duration: 1,
-          ease: 'power4.out',
-          scrollTrigger: { trigger: title, start: 'top 85%' }
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' }
         }
       );
     });
@@ -1871,66 +1878,178 @@
       );
     });
 
-    // 6. TEAM SECTION — FULLSCREEN HORIZONTAL SCROLL PIN
-    const teamSection    = document.querySelector('.team-section');
-    const teamContainer  = document.getElementById('teamScrollContainer');
-    const teamPanels     = document.querySelectorAll('.team-panel');
-    const teamDots       = document.querySelectorAll('.team-dot');
-    const totalPanels    = teamPanels.length;
+    // 6. TEAM SECTION — CAROUSEL
+    (function () {
+      const teamSection   = document.querySelector('.team-section');
+      const teamContainer = document.getElementById('teamScrollContainer');
+      const teamPanels    = document.querySelectorAll('.team-panel');
+      const teamDots      = document.querySelectorAll('.team-dot');
+      if (!teamSection || !teamContainer || !teamPanels.length) return;
 
-    if (teamSection && teamContainer && totalPanels > 0) {
-      const getScrollDist = () => (totalPanels - 1) * window.innerWidth;
+      let currentPanel = 0;
 
-      gsap.to(teamContainer, {
-        x: () => -getScrollDist(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: teamSection,
-          start: 'top top',
-          end: () => `+=${getScrollDist()}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const activeIndex = Math.round(self.progress * (totalPanels - 1));
-            teamDots.forEach((dot, i) => dot.classList.toggle('active', i === activeIndex));
+      function animatePanel(index) {
+        const panel  = teamPanels[index];
+        const avatar = panel.querySelector('.team-panel-avatar');
+        const name   = panel.querySelector('.team-panel-name');
+        const role   = panel.querySelector('.team-panel-role');
+        const badge  = panel.querySelector('.team-panel-badge');
+        [avatar, name, role, badge].forEach((el, i) => {
+          if (!el) return;
+          el.style.opacity   = '0';
+          el.style.transform = 'translateY(30px)';
+          setTimeout(() => {
+            el.style.transition = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+            el.style.opacity    = '1';
+            el.style.transform  = 'translateY(0)';
+          }, i * 100);
+        });
+      }
+
+      let isAnimating = false;
+      let cursorZone  = 'middle';
+
+      function goToPanel(index) {
+        let newIndex = index;
+        if (index < 0) newIndex = teamPanels.length - 1;
+        if (index >= teamPanels.length) newIndex = 0;
+        currentPanel = newIndex;
+        teamContainer.style.transform = `translateX(-${newIndex * 100}vw)`;
+        document.querySelectorAll('.team-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === newIndex);
+        });
+        setTimeout(() => animatePanel(newIndex), 100);
+      }
+
+      // Zone-based mousemove
+      const teamCursorDot = document.getElementById('cursorDot');
+      const swipeLeftEl   = document.getElementById('swipeLeft');
+      const swipeRightEl  = document.getElementById('swipeRight');
+
+      teamSection.addEventListener('mousemove', (e) => {
+        const rect  = teamSection.getBoundingClientRect();
+        const ratio = (e.clientX - rect.left) / rect.width;
+
+        if (ratio < 0.2) {
+          cursorZone = 'left';
+          if (swipeLeftEl)  swipeLeftEl.style.opacity  = '1';
+          if (swipeRightEl) swipeRightEl.style.opacity = '0';
+          teamSection.style.cursor = 'none';
+          if (teamCursorDot) {
+            teamCursorDot.style.width      = '44px';
+            teamCursorDot.style.height     = '44px';
+            teamCursorDot.style.background = 'rgba(200,232,0,0.9)';
+          }
+        } else if (ratio > 0.8) {
+          cursorZone = 'right';
+          if (swipeRightEl) swipeRightEl.style.opacity = '1';
+          if (swipeLeftEl)  swipeLeftEl.style.opacity  = '0';
+          teamSection.style.cursor = 'none';
+          if (teamCursorDot) {
+            teamCursorDot.style.width      = '44px';
+            teamCursorDot.style.height     = '44px';
+            teamCursorDot.style.background = 'rgba(200,232,0,0.9)';
+          }
+        } else {
+          cursorZone = 'middle';
+          if (swipeLeftEl)  swipeLeftEl.style.opacity  = '0';
+          if (swipeRightEl) swipeRightEl.style.opacity = '0';
+          teamSection.style.cursor = 'default';
+          if (teamCursorDot) {
+            teamCursorDot.style.width      = '10px';
+            teamCursorDot.style.height     = '10px';
+            teamCursorDot.style.background = '#C8E800';
           }
         }
       });
 
-      // Dot click → smooth scroll to that panel
-      teamDots.forEach((dot, i) => {
-        dot.addEventListener('click', () => {
-          const progress    = i / (totalPanels - 1);
-          const targetY     = teamSection.offsetTop + progress * getScrollDist();
-          gsap.to(window, { scrollTo: targetY, duration: 0.9, ease: 'power2.inOut' });
-        });
-      });
-    }
-
-    // 7. EYEBROW SLIDE-IN (non-animated-eyebrow only)
-    document.querySelectorAll('.eyebrow:not(.animated-eyebrow)').forEach(el => {
-      gsap.fromTo(el,
-        { x: -30, opacity: 0 },
-        {
-          x: 0, opacity: 1,
-          duration: 0.7,
-          ease: 'power2.out',
-          scrollTrigger: { trigger: el, start: 'top 88%' }
+      teamSection.addEventListener('mouseleave', () => {
+        cursorZone = 'middle';
+        if (swipeLeftEl)  swipeLeftEl.style.opacity  = '0';
+        if (swipeRightEl) swipeRightEl.style.opacity = '0';
+        if (teamCursorDot) {
+          teamCursorDot.style.width      = '10px';
+          teamCursorDot.style.height     = '10px';
+          teamCursorDot.style.background = '#C8E800';
         }
-      );
-    });
+      });
 
-    // 9. AWWWARDS SECTION TITLE SPLIT REVEAL
-    document.querySelectorAll('.split-title').forEach(title => {
-      // Split text into word spans
-      const words = title.innerText.trim().split(/\s+/);
+      // Zone-based wheel
+      teamSection.addEventListener('wheel', (e) => {
+        if (cursorZone === 'left') {
+          e.preventDefault();
+          if (isAnimating) return;
+          isAnimating = true;
+          setTimeout(() => { isAnimating = false; }, 900);
+          goToPanel(currentPanel - 1);
+        } else if (cursorZone === 'right') {
+          e.preventDefault();
+          if (isAnimating) return;
+          isAnimating = true;
+          setTimeout(() => { isAnimating = false; }, 900);
+          goToPanel(currentPanel + 1);
+        }
+        // middle zone: fall through, page scrolls normally
+      }, { passive: false });
+
+      // Touch swipe
+      let touchStartX = 0;
+      teamSection.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+      teamSection.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) < 30) return;
+        if (isAnimating) return;
+        isAnimating = true;
+        setTimeout(() => { isAnimating = false; }, 900);
+        if (diff > 0) goToPanel(currentPanel + 1);
+        else goToPanel(currentPanel - 1);
+      }, { passive: true });
+
+      // Swipe zone clicks
+      swipeLeftEl?.addEventListener('click', () => {
+        if (!isAnimating) {
+          isAnimating = true;
+          setTimeout(() => { isAnimating = false; }, 900);
+          goToPanel(currentPanel - 1);
+        }
+      });
+      swipeRightEl?.addEventListener('click', () => {
+        if (!isAnimating) {
+          isAnimating = true;
+          setTimeout(() => { isAnimating = false; }, 900);
+          goToPanel(currentPanel + 1);
+        }
+      });
+
+      // Dot clicks
+      teamDots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goToPanel(i));
+      });
+
+      // Animate first panel when section enters viewport
+      const teamObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animatePanel(0);
+            teamObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      teamObserver.observe(teamSection);
+
+      // Init
+      goToPanel(0);
+    }());
+
+    // All section titles — word split reveal
+    document.querySelectorAll('.section-title').forEach(title => {
+      const words = title.innerHTML.split(' ');
       title.innerHTML = words.map(w =>
-        `<span class="title-word-wrap" style="display:inline-block;overflow:hidden;vertical-align:bottom;margin-right:0.22em;">` +
-        `<span class="title-word" style="display:inline-block;">${w}</span></span>`
+        `<span style="display:inline-block;overflow:hidden;vertical-align:bottom;">` +
+        `<span class="title-word" style="display:inline-block;">${w}&nbsp;</span></span>`
       ).join('');
-
       gsap.from(title.querySelectorAll('.title-word'), {
         yPercent: 110,
         opacity: 0,
@@ -1941,26 +2060,14 @@
       });
     });
 
-    // 10. AWWWARDS EYEBROW SLIDE-IN
-    document.querySelectorAll('.animated-eyebrow').forEach(eyebrow => {
-      gsap.from(eyebrow, {
+    // All eyebrow labels slide in
+    document.querySelectorAll('.eyebrow').forEach(el => {
+      gsap.from(el, {
         x: -40,
         opacity: 0,
         duration: 0.7,
         ease: 'power3.out',
-        scrollTrigger: { trigger: eyebrow, start: 'top 88%' }
-      });
-    });
-
-    // 11. SECTION BODY FADE UP
-    document.querySelectorAll('.split-body').forEach(bodyText => {
-      gsap.from(bodyText, {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        delay: 0.3,
-        scrollTrigger: { trigger: bodyText, start: 'top 88%' }
+        scrollTrigger: { trigger: el, start: 'top 88%' }
       });
     });
 
@@ -1976,20 +2083,6 @@
             ease: 'power3.inOut'
           });
         }
-      });
-    });
-
-    ScrollTrigger.refresh();
-
-    // Feature card subtle hover glow
-    document.querySelectorAll('.feature-card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        card.style.boxShadow = '0 4px 24px rgba(26,107,42,0.12), 0 0 20px rgba(126,200,32,0.25)';
-        card.style.borderColor = 'rgba(126,200,32,0.6)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.boxShadow = '0 2px 16px rgba(26,107,42,0.08)';
-        card.style.borderColor = 'rgba(126,200,32,0.25)';
       });
     });
 
@@ -2012,6 +2105,21 @@
         card.style.borderColor = 'rgba(126,200,32,0.18)';
       });
     });
+
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.boxShadow = '0 4px 24px rgba(26,107,42,0.12), 0 0 20px rgba(126,200,32,0.25)';
+        card.style.borderColor = 'rgba(126,200,32,0.6)';
+        card.style.background = '#ffffff';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.boxShadow = '0 2px 16px rgba(26,107,42,0.08), 0 0 15px rgba(126,200,32,0.12)';
+        card.style.borderColor = 'rgba(126,200,32,0.25)';
+        card.style.background = '#ffffff';
+      });
+    });
+
+    ScrollTrigger.refresh();
 
   </script>
 
