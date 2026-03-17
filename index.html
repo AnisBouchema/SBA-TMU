@@ -937,12 +937,6 @@
     /* ============================================================
        RESPONSIVE — TABLET (≤ 960px)
     ============================================================ */
-    @media (max-width: 768px) {
-      .pillars {
-        grid-template-columns: 1fr;
-      }
-    }
-
     @media (max-width: 960px) {
       .what-grid {
         grid-template-columns: 1fr;
@@ -955,9 +949,26 @@
     }
 
     /* ============================================================
-       RESPONSIVE — MOBILE (≤ 720px)
+       RESPONSIVE — MOBILE (≤ 768px)
     ============================================================ */
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
+      /* Cursor */
+      .cursor-dot, .cursor-ring {
+        display: none !important;
+      }
+      * {
+        cursor: auto !important;
+      }
+
+      /* Canvas */
+      #leafCanvas {
+        display: none;
+      }
+
+      /* Navbar */
+      nav {
+        padding: 0 20px;
+      }
       .nav-links {
         display: none;
         flex-direction: column;
@@ -969,44 +980,115 @@
         background: rgba(13, 46, 16, 0.98);
         backdrop-filter: blur(12px);
         padding: 20px 6% 28px;
-        gap: 18px;
+        gap: 16px;
       }
-
       .nav-links.open {
         display: flex;
       }
-
+      .nav-links a {
+        font-size: 13px;
+      }
       .nav-toggle {
         display: flex;
       }
 
-      #what-is-sba,
-      #lifestyle,
-      #events,
-      #learn,
-      #join {
-        padding-top: 80px;
-        padding-bottom: 80px;
+      /* Hero */
+      #hero {
+        padding: 80px 24px 40px;
+        gap: 16px;
+        min-height: 100vh;
+        justify-content: center;
       }
-
-      .what-grid {
-        grid-template-columns: 1fr;
-        max-width: 100%;
+      .hero-title {
+        font-size: clamp(42px, 12vw, 64px) !important;
+        line-height: 1.0;
+        text-align: center;
       }
-
-
-      .topics-grid {
-        grid-template-columns: 1fr;
+      .hero-sub {
+        font-size: 16px !important;
+        text-align: center;
+        padding: 0 8px;
       }
-
       .hero-buttons {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        gap: 12px;
+      }
+      .hero-buttons .btn {
+        width: 80%;
+        text-align: center;
+        padding: 16px 24px !important;
+        font-size: 16px !important;
       }
 
-      .btn {
-        width: 100%;
-        max-width: 280px;
+      /* What is SBA */
+      #what-is-sba {
+        padding: 48px 24px;
+      }
+      .what-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 100%;
+      }
+      .section-title {
+        font-size: clamp(28px, 8vw, 44px);
+      }
+
+      /* Lifestyle */
+      #lifestyle {
+        padding: 48px 24px;
+      }
+      .pillars {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .pillar {
+        padding: 32px 28px;
+        min-height: auto;
+      }
+
+      /* Events */
+      #events {
+        padding: 48px 24px;
+      }
+      .event-pills {
+        gap: 10px;
+      }
+      .event-pill {
+        font-size: 13px;
+        padding: 8px 16px;
+      }
+
+      /* What You'll Learn */
+      #learn {
+        padding: 48px 24px;
+      }
+      .topics-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .topic-card {
+        min-height: auto;
+        padding: 28px 24px;
+      }
+
+      /* Team */
+      .team-panel {
+        padding: 24px;
+      }
+      .swipe-zone {
+        width: 20%;
+      }
+
+      /* Join CTA */
+      #join {
+        padding: 64px 24px;
+      }
+
+      /* Footer */
+      footer {
+        padding: 32px 24px;
       }
     }
 
