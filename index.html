@@ -240,7 +240,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 100px 40px 40px;
+      padding: 80px 40px 40px;
       position: relative;
       overflow: hidden;
     }
@@ -261,7 +261,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
     }
 
     .hero-accent {
@@ -277,25 +277,25 @@
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: clamp(52px, 7vw, 88px);
+      font-size: clamp(64px, 9vw, 120px);
       color: #F9FAF0;
-      line-height: 1.05;
+      line-height: 1.0;
       margin-bottom: 0;
     }
 
     .hero-sub {
       font-family: 'DM Sans', sans-serif;
       font-weight: 400;
-      font-size: 18px;
+      font-size: 20px;
       color: rgba(249, 250, 240, 0.84);
       line-height: 1.7;
       margin: 0 auto;
-      max-width: 600px;
+      max-width: 640px;
     }
 
     .hero-buttons .btn {
-      padding: 16px 40px;
-      font-size: 16px;
+      padding: 18px 48px;
+      font-size: 17px;
     }
 
     .hero-buttons {
@@ -1676,11 +1676,18 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    let mouseVX = 0;
+    let mouseVY = 0;
+
     const hero = document.querySelector('#hero');
     hero.addEventListener('mousemove', (e) => {
       const rect = hero.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
+      const newX = e.clientX - rect.left;
+      const newY = e.clientY - rect.top;
+      mouseVX = newX - mouse.x;
+      mouseVY = newY - mouse.y;
+      mouse.x = newX;
+      mouse.y = newY;
     });
 
     const logoImg = new Image();
@@ -1699,7 +1706,7 @@
       };
     }
 
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
       const logo = createLogo();
       logo.y = Math.random() * canvas.height;
       logos.push(logo);
@@ -1713,9 +1720,13 @@
         const dy = mouse.y - logo.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 60) {
-          logo.x -= (dx / dist) * 1.0;
-          logo.y -= (dy / dist) * 1.0;
+        if (dist < 150) {
+          const force = (150 - dist) / 150;
+          const speed = Math.sqrt(mouseVX * mouseVX + mouseVY * mouseVY);
+          const repulsion = 3.5 + speed * 0.3;
+          logo.x -= (dx / dist) * repulsion * force;
+          logo.y -= (dy / dist) * repulsion * force;
+          logo.rotationSpeed = (Math.random() - 0.5) * 0.15;
         }
 
         logo.x += logo.speedX;
