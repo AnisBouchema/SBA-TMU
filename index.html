@@ -4,6 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sustainable Business Association — Toronto Metropolitan University</title>
+  <meta name="description" content="The Sustainable Business Association (SBA) at Toronto Metropolitan University — where ambition meets responsibility. Workshops, community, and real skills for TMU students who believe business can be a force for good.">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Sustainable Business Association — TMU">
+  <meta property="og:description" content="Where ambition meets responsibility. TMU's club for students who believe profit and purpose belong together. Open to all programs.">
+  <meta property="og:image"       content="images/SBA_logo_Transparent_WhiteOutline+Leaf.png">
+  <meta property="og:site_name"   content="SBA TMU">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Sustainable Business Association — TMU">
+  <meta name="twitter:description" content="Where ambition meets responsibility. Join TMU's Sustainable Business Association.">
+  <meta name="twitter:image"       content="images/SBA_logo_Transparent_WhiteOutline+Leaf.png">
+  <meta name="theme-color"         content="#1A6B2A">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Dancing+Script:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -25,7 +36,7 @@
     }
 
     html {
-      scroll-behavior: smooth;
+      /* scroll-behavior managed by GSAP ScrollToPlugin — do not add CSS smooth scroll */
     }
 
     body {
@@ -175,9 +186,34 @@
       height: 66px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 5%;
+      gap: 16px;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Nav logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+      opacity: 1;
+      transition: opacity 0.2s ease;
+    }
+    .nav-logo:hover { opacity: 0.75; }
+    .nav-logo img {
+      height: 32px;
+      width: auto;
+      display: block;
+    }
+
+    /* Nav CTA button */
+    .nav-cta {
+      padding: 9px 22px !important;
+      font-size: 0.82rem !important;
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
     #navbar.scrolled {
@@ -191,10 +227,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 40px;
+      gap: 36px;
       list-style: none;
-      margin: 0 auto;
+      margin: 0;
+      flex: 1;
     }
+
+    /* Mobile-only join link inside hamburger */
+    .nav-mobile-join { display: none; }
 
     .nav-links a {
       font-family: 'DM Sans', sans-serif;
@@ -293,6 +333,12 @@
       max-width: 680px;
     }
 
+    .hero-sub em {
+      font-style: normal;
+      font-weight: 600;
+      color: #C8E800;
+    }
+
     .hero-buttons .btn {
       padding: 20px 56px;
       font-size: 18px;
@@ -311,6 +357,57 @@
     #what-is-sba {
       background: #F9FAF0;
       padding: 64px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Word-cloud background layer */
+    .word-cloud-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .word-cloud-bg span {
+      position: absolute;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Lift content above word cloud */
+    #what-is-sba > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Wider intro block to accommodate the larger title */
+    #what-is-sba .section-intro {
+      max-width: 860px;
+    }
+
+    /* Override section-title size only inside this section */
+    #what-is-sba .section-title {
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+
+    /* Subheading — sits between the big title and the body copy */
+    .sba-sub-heading {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      color: #4A9B1A;
+      letter-spacing: 0.01em;
+      line-height: 1.5;
+      margin-bottom: 20px;
     }
 
     .section-intro {
@@ -348,9 +445,7 @@
       flex: 1;
     }
 
-    .feature-card:hover {
-      transform: translateY(-6px);
-    }
+    /* Note: hover lift is handled by Atropos — do not add CSS transform here as it conflicts with the 3D tilt */
 
     .feature-card .card-title {
       color: #1A6B2A;
@@ -1026,6 +1121,12 @@
       #what-is-sba {
         padding: 48px 24px;
       }
+      #what-is-sba .section-title {
+        font-size: clamp(2.2rem, 9vw, 3.4rem);
+      }
+      .sba-sub-heading {
+        font-size: 1rem;
+      }
       .what-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -1033,6 +1134,10 @@
       }
       .section-title {
         font-size: clamp(28px, 8vw, 44px);
+      }
+      /* Pillars stack on mobile */
+      .pillars {
+        grid-template-columns: 1fr;
       }
 
       /* Lifestyle */
@@ -1200,10 +1305,131 @@
       filter: blur(20px) !important;
     }
 
+    /* ============================================================
+       SKIP-TO-CONTENT (ACCESSIBILITY)
+    ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      background: #C8E800;
+      color: #0D2E10;
+      padding: 12px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      z-index: 10000;
+      border-radius: 0 0 8px 0;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ============================================================
+       FOCUS-VISIBLE (KEYBOARD ACCESSIBILITY)
+    ============================================================ */
+    :focus-visible {
+      outline: 2px solid #C8E800;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid #C8E800;
+      outline-offset: 4px;
+    }
+
+    /* ============================================================
+       TOPIC CARD COUNTER (01–06 labels via CSS)
+    ============================================================ */
+    .topics-grid {
+      counter-reset: topic-num;
+    }
+    .topic-card {
+      counter-increment: topic-num;
+    }
+    .topic-card::before {
+      content: counter(topic-num, decimal-leading-zero);
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #7EC820;
+      margin-bottom: 14px;
+    }
+
+    /* ============================================================
+       FOOTER SOCIAL LINKS
+    ============================================================ */
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(249, 250, 240, 0.18);
+      color: rgba(249, 250, 240, 0.55);
+      text-decoration: none;
+      transition: border-color 0.22s ease, color 0.22s ease, background 0.22s ease;
+    }
+    .footer-social a:hover {
+      border-color: #C8E800;
+      color: #C8E800;
+      background: rgba(200, 232, 0, 0.08);
+    }
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: rgba(249, 250, 240, 0.12);
+      margin: 0 auto 18px;
+    }
+
+    /* ============================================================
+       RESPONSIVE MOBILE — NAV OVERRIDES
+    ============================================================ */
+    @media (max-width: 768px) {
+      .nav-cta        { display: none; }
+      .nav-mobile-join { display: list-item; }
+      .nav-toggle     { margin-left: auto; }
+      .nav-logo img   { height: 28px; }
+    }
+
+    /* ============================================================
+       PREFERS-REDUCED-MOTION
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .pillar {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .btn {
+        transition: background 0.15s ease, color 0.15s ease !important;
+      }
+      @keyframes logoPulse   { 0%, 100% { transform: scale(1); } }
+      @keyframes pulseArrow  { 0%, 100% { transform: scale(1); } }
+    }
+
   </style>
 </head>
 
 <body>
+
+  <!-- Skip to main content (keyboard accessibility) -->
+  <a class="skip-link" href="#hero">Skip to main content</a>
 
   <!-- Custom cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
@@ -1211,15 +1437,27 @@
   <!-- ============================================================
        NAVIGATION
   ============================================================ -->
-  <nav id="navbar">
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <!-- Logo -->
+    <a href="#hero" class="nav-logo" aria-label="SBA — back to top">
+      <img src="images/SBA_logo_Transparent_WhiteOutline.svg" alt="Sustainable Business Association" height="32" width="auto">
+    </a>
+
+    <!-- Links -->
     <ul class="nav-links" id="navLinks">
       <li><a href="#what-is-sba">About</a></li>
       <li><a href="#lifestyle">Values</a></li>
       <li><a href="#events">Events</a></li>
       <li><a href="#learn">Learn</a></li>
       <li><a href="#team">Team</a></li>
-      <li><a href="#join">Join</a></li>
+      <!-- Join link visible only inside mobile hamburger -->
+      <li class="nav-mobile-join"><a href="#join">Join the SBA</a></li>
     </ul>
+
+    <!-- Desktop CTA (hidden on mobile) -->
+    <a href="#join" class="btn btn-primary nav-cta" id="navCta">Join the SBA</a>
+
+    <!-- Mobile hamburger -->
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
       <span></span>
       <span></span>
@@ -1270,7 +1508,7 @@
     <div class="hero-content fade-in" id="heroContent">
       <img src="images/SBA_logo_Transparent_WhiteOutline+Leaf.png" alt="SBA" style="width: 240px; height: auto; object-fit: contain; filter: drop-shadow(0 0 40px rgba(200,232,0,0.8)) drop-shadow(0 0 80px rgba(200,232,0,0.4)); animation: logoPulse 3s ease-in-out infinite;">
       <h1 class="hero-title">Sustainable Business Association</h1>
-      <p class="hero-sub">Where ambition meets responsibility. TMU's home for students who believe that how you build your life and your career matters just as much as what you build.</p>
+      <p class="hero-sub">Where ambition meets responsibility — and both win. TMU's club for students who believe that <em>how</em> you build matters as much as what you build.</p>
       <div class="hero-buttons">
         <a href="#join" class="btn btn-primary">Join the Club</a>
         <a href="#events" class="btn btn-ghost">See Our Events</a>
@@ -1284,11 +1522,48 @@
        WHAT IS THE SBA
   ============================================================ -->
   <section id="what-is-sba">
+
+    <!-- ── Word-cloud background ── -->
+    <div class="word-cloud-bg" aria-hidden="true">
+      <span style="top:4%;left:3%;font-size:42px;color:#1A6B2A;opacity:0.09;transform:rotate(-8deg)">Sustainability</span>
+      <span style="top:7%;left:62%;font-size:58px;color:#7EC820;opacity:0.07;transform:rotate(4deg)">ESG</span>
+      <span style="top:13%;left:28%;font-size:20px;color:#4A9B1A;opacity:0.11;transform:rotate(-3deg)">Circular Economy</span>
+      <span style="top:18%;left:74%;font-size:26px;color:#1A6B2A;opacity:0.09;transform:rotate(6deg)">Green Finance</span>
+      <span style="top:23%;left:10%;font-size:46px;color:#7EC820;opacity:0.07;transform:rotate(-6deg)">Ethics</span>
+      <span style="top:29%;left:50%;font-size:32px;color:#4A9B1A;opacity:0.09;transform:rotate(2deg)">Leadership</span>
+      <span style="top:36%;left:22%;font-size:28px;color:#1A6B2A;opacity:0.10;transform:rotate(-5deg)">Community</span>
+      <span style="top:41%;left:80%;font-size:50px;color:#7EC820;opacity:0.07;transform:rotate(-2deg)">Impact</span>
+      <span style="top:46%;left:6%;font-size:30px;color:#4A9B1A;opacity:0.09;transform:rotate(7deg)">Innovation</span>
+      <span style="top:52%;left:56%;font-size:38px;color:#1A6B2A;opacity:0.08;transform:rotate(-5deg)">Purpose</span>
+      <span style="top:57%;left:36%;font-size:22px;color:#7EC820;opacity:0.11;transform:rotate(4deg)">Climate</span>
+      <span style="top:62%;left:14%;font-size:44px;color:#4A9B1A;opacity:0.07;transform:rotate(-4deg)">Equity</span>
+      <span style="top:67%;left:70%;font-size:28px;color:#1A6B2A;opacity:0.10;transform:rotate(6deg)">Strategy</span>
+      <span style="top:72%;left:42%;font-size:34px;color:#7EC820;opacity:0.08;transform:rotate(-7deg)">Resilience</span>
+      <span style="top:77%;left:18%;font-size:20px;color:#4A9B1A;opacity:0.11;transform:rotate(3deg)">Stewardship</span>
+      <span style="top:81%;left:62%;font-size:24px;color:#1A6B2A;opacity:0.10;transform:rotate(-4deg)">Accountability</span>
+      <span style="top:86%;left:32%;font-size:46px;color:#7EC820;opacity:0.07;transform:rotate(5deg)">Net Zero</span>
+      <span style="top:90%;left:77%;font-size:28px;color:#4A9B1A;opacity:0.09;transform:rotate(-6deg)">Governance</span>
+      <span style="top:93%;left:6%;font-size:36px;color:#1A6B2A;opacity:0.08;transform:rotate(3deg)">Wellbeing</span>
+      <span style="top:10%;left:87%;font-size:18px;color:#7EC820;opacity:0.12;transform:rotate(-2deg)">Responsibility</span>
+      <span style="top:44%;left:89%;font-size:46px;color:#4A9B1A;opacity:0.07;transform:rotate(8deg)">Future</span>
+      <span style="top:60%;left:84%;font-size:24px;color:#1A6B2A;opacity:0.10;transform:rotate(-5deg)">Ambition</span>
+      <span style="top:70%;left:3%;font-size:54px;color:#7EC820;opacity:0.06;transform:rotate(4deg)">Growth</span>
+      <span style="top:80%;left:90%;font-size:36px;color:#4A9B1A;opacity:0.08;transform:rotate(-3deg)">Value</span>
+      <span style="top:20%;left:90%;font-size:22px;color:#1A6B2A;opacity:0.10;transform:rotate(6deg)">Balance</span>
+      <span style="top:48%;left:26%;font-size:18px;color:#7EC820;opacity:0.12;transform:rotate(-4deg)">Regenerative</span>
+      <span style="top:33%;left:67%;font-size:32px;color:#4A9B1A;opacity:0.08;transform:rotate(3deg)">Mindful</span>
+      <span style="top:64%;left:51%;font-size:26px;color:#1A6B2A;opacity:0.10;transform:rotate(-6deg)">Conscious</span>
+      <span style="top:16%;left:16%;font-size:26px;color:#7EC820;opacity:0.10;transform:rotate(5deg)">Systems</span>
+      <span style="top:84%;left:42%;font-size:30px;color:#4A9B1A;opacity:0.09;transform:rotate(-2deg)">Long-term</span>
+      <span style="top:2%;left:42%;font-size:24px;color:#1A6B2A;opacity:0.10;transform:rotate(3deg)">Transparency</span>
+      <span style="top:55%;left:15%;font-size:18px;color:#7EC820;opacity:0.11;transform:rotate(-3deg)">Carbon Neutral</span>
+    </div>
+
     <div class="container">
 
       <div class="section-intro section-header-rel">
-<span class="eyebrow animated-eyebrow">What is the SBA</span>
-        <h2 class="section-title split-title">A different kind of business club</h2>
+        <h2 class="section-title split-title">What is the SBA</h2>
+        <p class="sba-sub-heading">A different kind of business club</p>
         <p class="section-body split-body">The SBA sits at the intersection of business, sustainability, and real life. We challenge the idea that profit and purpose are opposites — and we prove it through education, events, and community.</p>
       </div>
 
@@ -1378,18 +1653,21 @@
       <div class="pillars">
 
         <div class="pillar">
+          <span class="pillar-num">01</span>
           <h3 class="pillar-title">Stay Ambitious</h3>
-          <p class="pillar-text">Hustle with purpose. Set big goals, work hard, and pursue your career with real intention. Ambition is celebrated here.</p>
+          <p class="pillar-text">Hustle with purpose. Set big goals, work hard, and pursue your career with real intention. Ambition is celebrated here — and backed by a community that holds you to it.</p>
         </div>
 
         <div class="pillar">
+          <span class="pillar-num">02</span>
           <h3 class="pillar-title">Rest &amp; Recharge</h3>
-          <p class="pillar-text">Breaks aren't weakness — they're strategy. You can't build anything meaningful running on empty. Recovery is part of the plan.</p>
+          <p class="pillar-text">Breaks aren't weakness — they're strategy. You can't build anything meaningful running on empty. Recovery is part of the plan, not a detour from it.</p>
         </div>
 
         <div class="pillar">
+          <span class="pillar-num">03</span>
           <h3 class="pillar-title">Protect Your Health</h3>
-          <p class="pillar-text">Mental, physical, social. Sustainable living means taking care of yourself today so you can keep going tomorrow.</p>
+          <p class="pillar-text">Mental, physical, social. Sustainable living means taking care of yourself today so you can keep going tomorrow — and for the decades after that.</p>
         </div>
 
       </div>
@@ -1406,7 +1684,7 @@
       <div class="events-header section-header-rel">
 <span class="eyebrow animated-eyebrow">Events & Community</span>
         <h2 class="section-title split-title">We actually do the things we talk about</h2>
-        <p class="section-body split-body">From professional workshops to outdoor adventures — the SBA calendar is built around getting outside, moving your body, and being present with people who share your values.</p>
+        <p class="section-body split-body">Industry workshops and case competitions sit right alongside beach days, community dinners, and winter outings. The SBA calendar runs all year — because real community doesn't pause between semesters.</p>
       </div>
 
       <div class="event-row fade-in">
@@ -1454,8 +1732,9 @@
     <div class="container">
 
       <div class="learn-header section-header-rel">
-<span class="eyebrow animated-eyebrow">Education</span>
+        <span class="eyebrow animated-eyebrow">Education</span>
         <h2 class="section-title split-title">What you'll learn</h2>
+        <p class="section-body split-body">These aren't just theories for a future job — they're frameworks for thinking differently about business, money, and systems. Ideas most programs haven't caught up to yet.</p>
       </div>
 
       <div class="topics-grid stagger">
@@ -1541,11 +1820,10 @@
           <div class="team-panel-avatar">
             <span class="team-panel-initials">AB</span>
           </div>
-          <span class="team-panel-role-tag">Founder</span>
+          <span class="team-panel-role-tag">Founder &amp; President</span>
           <h2 class="team-panel-name">Anis Bouchema</h2>
-          <p class="team-panel-role">Founder &amp; President</p>
+          <p class="team-panel-role">Leading the SBA's vision, strategy, and growth since founding.</p>
           <p class="team-panel-program">Sustainable Business Association · TMU</p>
-          <span class="team-panel-badge">Founder &amp; President</span>
           <a href="https://www.linkedin.com/in/anisbouchema/" target="_blank" rel="noopener noreferrer" class="team-panel-linkedin">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             Connect on LinkedIn
@@ -1560,11 +1838,10 @@
           <div class="team-panel-avatar">
             <span class="team-panel-initials">HS</span>
           </div>
-          <span class="team-panel-role-tag">Executive VP</span>
+          <span class="team-panel-role-tag">Executive Vice President</span>
           <h2 class="team-panel-name">Hosaa Siddiqui</h2>
-          <p class="team-panel-role">Executive Vice President</p>
+          <p class="team-panel-role">Driving operations, member experience, and club culture.</p>
           <p class="team-panel-program">Sustainable Business Association · TMU</p>
-          <span class="team-panel-badge">Executive Vice President</span>
           <a href="https://www.linkedin.com/in/hosaa-siddiqui-95b46a221/" target="_blank" rel="noopener noreferrer" class="team-panel-linkedin">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             Connect on LinkedIn
@@ -1581,9 +1858,8 @@
           </div>
           <span class="team-panel-role-tag">VP Finance</span>
           <h2 class="team-panel-name">Yuliya Lypnytska</h2>
-          <p class="team-panel-role">VP Finance</p>
+          <p class="team-panel-role">Managing the club's finances, budgeting, and funding strategy.</p>
           <p class="team-panel-program">Sustainable Business Association · TMU</p>
-          <span class="team-panel-badge">VP Finance</span>
           <a href="https://www.linkedin.com/in/yuliya-lypnytska-ba25bb322/" target="_blank" rel="noopener noreferrer" class="team-panel-linkedin">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             Connect on LinkedIn
@@ -1624,10 +1900,10 @@
     </svg>
 
     <div class="join-inner">
-      <span class="join-accent fade-in">Ready to get started?</span>
+      <span class="join-accent fade-in">Your seat is waiting.</span>
       <h2 class="join-title fade-in">Get in at the ground floor.</h2>
-      <p class="join-body fade-in">The SBA is brand new — which means you'd be helping shape what it becomes. Executive and committee roles are open. All full-time TMU students are welcome.</p>
-      <a href="mailto:sba.torontomu@gmail.com" class="btn btn-primary fade-in">Join the SBA</a>
+      <p class="join-body fade-in">Early members help shape what the SBA becomes — from the events we run to the culture we build. Executive and committee roles are open. All full-time TMU students are welcome, regardless of program.</p>
+      <a href="mailto:sba.torontomu@gmail.com" class="btn btn-primary fade-in">Join the SBA →</a>
     </div>
 
   </section>
@@ -1636,10 +1912,29 @@
   <!-- ============================================================
        FOOTER
   ============================================================ -->
-  <footer>
-    <img src="images/SBA_logo_Transparent_WhiteOutline.svg" alt="SBA Logo" style="height: 120px; width: auto; display: block; margin: 0 auto 20px;">
+  <footer role="contentinfo">
+    <img src="images/SBA_logo_Transparent_WhiteOutline.svg" alt="Sustainable Business Association" style="height: 100px; width: auto; display: block; margin: 0 auto 24px;">
     <p class="footer-org">Sustainable Business Association · Toronto Metropolitan University</p>
     <a href="mailto:sba.torontomu@gmail.com" class="footer-email">sba.torontomu@gmail.com</a>
+
+    <div class="footer-divider"></div>
+
+    <!-- Social links — replace # with real URLs when available -->
+    <div class="footer-social">
+      <!-- Instagram -->
+      <a href="#" aria-label="SBA on Instagram" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <!-- LinkedIn -->
+      <a href="#" aria-label="SBA on LinkedIn" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <!-- Email -->
+      <a href="mailto:sba.torontomu@gmail.com" aria-label="Email the SBA">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+    </div>
+
     <p class="footer-note">Open to all full-time TMU students · Affiliated with TMSU</p>
   </footer>
 
@@ -1678,15 +1973,17 @@
 
     // ── Nav link flash + mobile close ────────────────────────────
     const navFlash = document.getElementById('nav-flash');
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        navToggle.setAttribute('aria-expanded', 'false');
-        // Green tint flash
-        navFlash.classList.add('flash');
-        setTimeout(() => navFlash.classList.remove('flash'), 200);
-      });
-    });
+    const navCta   = document.getElementById('navCta');
+
+    function doNavClick() {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navFlash.classList.add('flash');
+      setTimeout(() => navFlash.classList.remove('flash'), 200);
+    }
+
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', doNavClick));
+    if (navCta) navCta.addEventListener('click', doNavClick);
 
     // ── Scroll fade-in via Intersection Observer ─────────────────
     const fadeEls = document.querySelectorAll('.fade-in');
@@ -1705,29 +2002,10 @@
 
     fadeEls.forEach(el => observer.observe(el));
 
-    // ── Event pill wave stagger ───────────────────────────────────
-    document.querySelectorAll('.event-pills').forEach(row => {
-      row.querySelectorAll('.event-pill').forEach((pill, i) => {
-        pill.style.transitionDelay = `${i * 0.06}s`;
-        pill.style.opacity = '0';
-        pill.style.transform = 'translateY(12px)';
-        pill.style.transition = 'opacity 0.4s ease, transform 0.4s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease';
-      });
+    // ── Event pill hover transitions (GSAP ScrollTrigger handles the entrance animation) ──
+    document.querySelectorAll('.event-pill').forEach(pill => {
+      pill.style.transition = 'background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease';
     });
-
-    const pillObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.event-pill').forEach(pill => {
-            pill.style.opacity = '1';
-            pill.style.transform = 'translateY(0)';
-          });
-          pillObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.event-pills').forEach(row => pillObserver.observe(row));
 
     // ── Custom cursor ─────────────────────────────────────────────
     const dot = document.getElementById('cursorDot');
@@ -1740,7 +2018,7 @@
       dot.style.top  = mouseY + 'px';
     });
 
-    document.querySelectorAll('a, button, .event-pill, .sba-card-atropos, .team-panel-linkedin, .team-dot').forEach(el => {
+    document.querySelectorAll('a, button, .event-pill, .sba-card-atropos, .team-panel-linkedin, .team-dot, .nav-logo, .nav-cta').forEach(el => {
       el.addEventListener('mouseenter', () => {
         dot.style.width  = '14px';
         dot.style.height = '14px';
@@ -1856,14 +2134,7 @@
       });
     });
 
-    Atropos({
-      el: '.hero-atropos',
-      activeOffset: 15,
-      shadow: false,
-      duration: 400,
-      rotateXMax: 6,
-      rotateYMax: 6,
-    });
+    // (hero-atropos removed — no hero element uses Atropos)
   </script>
 
   <!-- ============================================================
@@ -2025,7 +2296,7 @@
           cursorZone = 'middle';
           if (swipeLeftEl)  swipeLeftEl.style.opacity  = '0';
           if (swipeRightEl) swipeRightEl.style.opacity = '0';
-          teamSection.style.cursor = 'default';
+          /* cursor: none is enforced globally — no override needed */
           if (teamCursorDot) {
             teamCursorDot.style.width      = '10px';
             teamCursorDot.style.height     = '10px';
